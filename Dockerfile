@@ -13,10 +13,14 @@ RUN apt-get update \
         php${PHP_VERSION}-imap php${PHP_VERSION}-mcrypt php${PHP_VERSION}-zip \
         php${PHP_VERSION}-intl php${PHP_VERSION}-dev php${PHP_VERSION}-bcmath \
         pkg-config php-pear libcurl4-openssl-dev libssl-dev libsslcommon2-dev \
+        php${PHP_VERSION}-gettext php${PHP_VERSION}-cgi php${PHP_VERSION}-cgi php${PHP_VERSION}-gd \
+        libapache2-mod-php${PHP_VERSION} \
+        pkg-config php-pear libcurl4-openssl-dev libssl-dev libsslcommon2-dev openssl \
+        make gcc g++ paxctl gnupg patch apache2 \
     && pecl install mongodb xdebug \
     && echo "zend_extension=/usr/lib/php/20160303/xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
     && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
-    && echo "extension=mongodb.so" >> /etc/php/${PHP_VERSION}/fpm/php.ini \  
+    && echo "extension=mongodb.so" >> /etc/php/${PHP_VERSION}/fpm/php.ini \    
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && wget -O phpunit https://phar.phpunit.de/phpunit-${PHPUNIT_VERSION}.phar && chmod +x phpunit && mv phpunit /usr/local/bin/phpunit
 
